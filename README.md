@@ -29,11 +29,11 @@ The project focuses on building a **functional MVP** demonstrating essential IDE
 
 ### 🔐 User Authentication
 - Secure **JWT-based** registration and login  
-- Persistent sessions using `localStorage`  
+- Persistent sessions using `localStorage`
 
 ### 💾 Project Persistence
 - Save and load entire projects (files + code) from MongoDB  
-- User-specific data isolation  
+- User-specific data isolation
 
 ### 📂 Project Management
 - 🆕 **New:** Start from a blank React template  
@@ -46,7 +46,7 @@ The project focuses on building a **functional MVP** demonstrating essential IDE
 - ➕ **Add New Files:** Easily via custom modal dialog  
 - 🔁 **Switch Files:** Toggle between files instantly  
 - 💻 **Code Editor:** Syntax highlighting powered by **Sandpack**  
-- ⚡ **Live Preview:** Real-time React rendering (no refresh needed)  
+- ⚡ **Live Preview:** Real-time React rendering (no refresh needed)
 
 ### 💻 Interactive UI
 - 🪟 **Resizable Panels** for editor & preview layout  
@@ -98,11 +98,57 @@ CipherStudio follows a modular **client–server architecture**:
 ## 🚀 **Setup & Installation (Run Locally)**
 
 ### 🧰 Prerequisites
-Ensure you have:
-- Node.js (v18+)
-- npm (comes with Node)
-- Git
-- MongoDB Atlas account
+Ensure you have installed:
+- **Node.js (v18+)**
+- **npm** (comes with Node)
+- **Git**
+- **MongoDB Atlas** account
 
+---
+
+### ⚙️ **1. Clone the Repository**
+```bash
+git clone https://github.com/neerajgade0010/cipher-studio.git
+cd cipher-studio
+```
+
+🖥️ 2. Setup Backend
+```bash
+cd cipher-studio-backend
+npm install
+```
+
+Create a .env file inside the backend folder:
+
+MONGO_URI=mongodb+srv://<username>:<password>@your-cluster.mongodb.net/cipherstudio
+JWT_SECRET=your_super_secret_jwt_key
+PORT=8080
+
+Start the backend:
+```bash
+node server.js
+```
+
+💻 3. Setup Frontend
+```bash
+cd cipher-studio-frontend
+npm install
+npm run dev
+```
+
+### ☁️ Deployment
+
+🖥️ Frontend (Vercel)
+
+Push your frontend code to GitHub
+Import the repository into Vercel
+Set required environment variables (if any)
+
+⚙️ Backend (Render)
+
+Push your backend folder to GitHub
+Import the repository into Render
+Add environment variables from your .env file
+Deploy the Express API 🚀
 
 
