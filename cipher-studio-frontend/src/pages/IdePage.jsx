@@ -1,8 +1,9 @@
 import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
+// STEP 1: Remove nightOwlTheme from this import
 import { SandpackProvider, useSandpack } from '@codesandbox/sandpack-react';
-// TRYING A DIFFERENT THEME: Import 'sandpackDark' instead of 'nightOwlTheme'
-import { sandpackDark } from '@codesandbox/sandpack-themes';
+// STEP 2: Import the theme from the correct library
+import { nightOwl } from '@codesandbox/sandpack-themes';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import Editor from '../component/Editor';
 import FileExplorer from '../component/FileExplorer';
@@ -18,7 +19,7 @@ const defaultFiles = {
 };
 
 // Inner component to access Sandpack context
-const IdeLayout = ({ onSave, onNew, userProjects, onLoad, onDelete, projectName, setProjectName, showToast }) => {
+const IdeLayout = ({ onSave, onNew, userProjects, onLoad, projectName, setProjectName, showToast }) => {
     const { sandpack } = useSandpack();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newFileName, setNewFileName] = useState('');
@@ -36,7 +37,7 @@ const IdeLayout = ({ onSave, onNew, userProjects, onLoad, onDelete, projectName,
         }
         closeModal();
     };
-
+    
     const openModal = () => {
         setNewFileName('');
         setIsModalOpen(true);
@@ -57,7 +58,6 @@ const IdeLayout = ({ onSave, onNew, userProjects, onLoad, onDelete, projectName,
                 onNew={onNew}
                 userProjects={userProjects}
                 onLoad={onLoad}
-                onDelete={onDelete}
             />
             <main className="main-layout">
                 <PanelGroup direction="horizontal">
@@ -99,9 +99,7 @@ const IdePage = () => {
     const [projectId, setProjectId] = useState(null);
     const [projects, setProjects] = useState([]);
     const [toast, setToast] = useState(null);
-    const [projectToDelete, setProjectToDelete] = useState(null);
-    const API_URL = 'http://localhost:8080/api';
-
+    const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8080') + '/api';
     useEffect(() => {
         const fetchProjects = async () => {
             try {
@@ -115,7 +113,7 @@ const IdePage = () => {
     const showToast = (message, type) => {
         setToast({ id: Date.now(), message, type });
     };
-
+    
     const handleSaveProject = async (currentFiles) => {
         const url = projectId ? `${API_URL}/projects/${projectId}` : `${API_URL}/projects`;
         const method = projectId ? 'PUT' : 'POST';
@@ -133,7 +131,7 @@ const IdePage = () => {
             } else { showToast(`Error: ${data.message}`, 'error'); }
         } catch (error) { showToast('An error occurred while saving.', 'error'); console.error("Failed to save project:", error); }
     };
-
+    
     const handleLoadProject = async (id) => {
         try {
             const response = await fetch(`${API_URL}/projects/${id}`, { headers: { 'x-auth-token': token } });
@@ -146,7 +144,7 @@ const IdePage = () => {
             } else { showToast(`Error: ${data.message}`, 'error'); }
         } catch(error) { showToast('An error occurred while loading.', 'error'); console.error("Failed to load project:", error); }
     };
-
+    
     const handleNewProject = () => {
         setFiles(defaultFiles);
         setProjectName('Untitled Project');
@@ -154,77 +152,29 @@ const IdePage = () => {
         showToast('Started a new blank project.', 'success');
     };
 
-    const handleDeleteProject = async () => {
-        if (!projectToDelete) return;
-        const idToDelete = projectToDelete._id;
-
-        try {
-            const response = await fetch(`${API_URL}/projects/${idToDelete}`, {
-                method: 'DELETE',
-                headers: { 'x-auth-token': token }
-            });
-
-            if (response.ok) {
-                showToast(`Project '${projectToDelete.name}' deleted.`, 'success');
-                setProjects(prev => prev.filter(p => p._id !== idToDelete));
-                if (projectId === idToDelete) {
-                    handleNewProject();
-                }
-            } else {
-                const data = await response.json();
-                showToast(`Error deleting: ${data.message}`, 'error');
-            }
-        } catch (error) {
-            showToast('An error occurred while deleting the project.', 'error');
-            console.error("Failed to delete project:", error);
-        }
-        setProjectToDelete(null);
-    };
-
     return (
         <>
             <SandpackProvider
                 template="react"
                 files={files}
-                // TRYING A DIFFERENT THEME: Use 'sandpackDark' here
-                theme={sandpackDark}
+                // STEP 3: Use the correctly imported theme name
+                theme={nightOwl}
                 key={projectId || 'new-project'}
             >
-                <IdeLayout
+                <IdeLayout 
                     onSave={handleSaveProject}
                     onNew={handleNewProject}
                     onLoad={handleLoadProject}
-                    onDelete={setProjectToDelete}
                     userProjects={projects}
                     projectName={projectName}
                     setProjectName={setProjectName}
                     showToast={showToast}
                 />
             </SandpackProvider>
-
-            <Modal
-                show={!!projectToDelete}
-                onClose={() => setProjectToDelete(null)}
-                title="Delete Project Confirmation"
-            >
-                <div className="delete-confirm-modal">
-                    <p>Are you sure you want to permanently delete the project:</p>
-                    <p><strong>"{projectToDelete?.name}"</strong>?</p>
-                    <p>This action cannot be undone.</p>
-                    <div className="delete-confirm-buttons">
-                        <button onClick={() => setProjectToDelete(null)} className="btn-secondary">
-                            Cancel
-                        </button>
-                        <button onClick={handleDeleteProject} className="btn-danger">
-                            Delete Project
-                        </button>
-                    </div>
-                </div>
-            </Modal>
-
             {toast && <Toast key={toast.id} message={toast.message} type={toast.type} onDone={() => setToast(null)} />}
         </>
     );
 };
 
 export default IdePage;
+

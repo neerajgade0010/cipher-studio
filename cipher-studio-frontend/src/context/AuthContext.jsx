@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
-    const API_URL = 'http://localhost:8080/api';
+    const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8080') + '/api';
 
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
