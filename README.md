@@ -1,105 +1,108 @@
-# ⚡ CipherStudio — A Browser-Based React IDE  
+# ⚡ **CipherStudio — A Browser-Based React IDE**
 
-> Build, preview, and manage React projects directly in your browser.  
-> Inspired by **CodeSandbox** and **NextLeap.js**, powered by the **MERN stack**.  
+> 🚀 **Build, preview, and manage React projects directly in your browser.**  
+> Inspired by **CodeSandbox** and **NextLeap.js**, powered by the **MERN stack**.
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Frontend-Vercel-000000?style=for-the-badge&logo=vercel" />
+  <img src="https://img.shields.io/badge/Backend-Render-46C6A5?style=for-the-badge&logo=render" />
+  <img src="https://img.shields.io/badge/Database-MongoDB-4EA94B?style=for-the-badge&logo=mongodb" />
+  <img src="https://img.shields.io/badge/Stack-MERN-3C873A?style=for-the-badge&logo=react" />
+</p>
 
 ---
 
-## 🎯 Objective  
+## 🎯 **Objective**
 
-**CipherStudio** is a full-stack web application that simulates a real-time, browser-based Integrated Development Environment (IDE) for React projects.  
+**CipherStudio** is a full-stack web application designed to simulate a **real-time browser-based IDE for React projects**.  
 
 It enables users to:
-- Write, preview, save, and manage React code directly in the browser  
-- Experience IDE-like features (multi-file editing, live preview, and project persistence)  
-- Demonstrate full-stack integration using the **MERN** stack  
+- ✍️ Write and preview React code directly in the browser  
+- 💾 Save, manage, and load multiple project files  
+- ⚡ Experience IDE-like functionality with a seamless full-stack setup  
 
-The project focuses on building a **functional MVP** showcasing essential IDE functionalities with modern tools and libraries.  
-
----
-
-## ✨ Key Features  
-
-### 🔐 User Authentication  
-- Secure registration and login via **JWT (JSON Web Tokens)**  
-
-### 💾 Project Persistence  
-- Save, load, and delete React projects tied to user accounts (MongoDB storage)
-
-### 📂 Project Management  
-- **Save:** Store project files and code by name  
-- **Load:** Retrieve previously saved projects  
-- **New:** Start a fresh React template  
-- **Delete:** Permanently remove projects (with confirmation)
-
-### 📝 Multi-File Editor  
-- **File Explorer:** Browse `.js`, `.jsx`, `.css`, `.json` files  
-- **File Creation:** Add new files via custom modal dialog  
-- **File Switching:** Instantly open files in the editor  
-- **Code Editor:** Rich syntax highlighting powered by **Sandpack**  
-- **Live Preview:** Real-time React rendering using Sandpack bundler  
-
-### 💻 Interactive UI  
-- **Resizable Panels:** Adjust layout via drag handles  
-- **Toast Notifications:** Quick visual feedback for actions  
-- **Custom Modals:** Clean dialogs for creating or deleting files  
-- **Theming:** Consistent custom dark theme across the app  
+The project focuses on building a **functional MVP** demonstrating essential IDE capabilities using modern MERN tools.
 
 ---
 
-## 🏗️ Architecture Overview  
+## ✨ **Key Features**
 
-CipherStudio uses a **client–server architecture**:
+### 🔐 User Authentication
+- Secure **JWT-based** registration and login  
+- Persistent sessions using `localStorage`  
+
+### 💾 Project Persistence
+- Save and load entire projects (files + code) from MongoDB  
+- User-specific data isolation  
+
+### 📂 Project Management
+- 🆕 **New:** Start from a blank React template  
+- 💾 **Save:** Preserve your work with a project name  
+- 📥 **Load:** Retrieve saved projects from the database  
+- 🗑️ **Delete:** Remove projects with confirmation  
+
+### 📝 Multi-File Editor
+- 🧭 **File Explorer:** Manage `.js`, `.jsx`, `.css`, `.json` files  
+- ➕ **Add New Files:** Easily via custom modal dialog  
+- 🔁 **Switch Files:** Toggle between files instantly  
+- 💻 **Code Editor:** Syntax highlighting powered by **Sandpack**  
+- ⚡ **Live Preview:** Real-time React rendering (no refresh needed)  
+
+### 💻 Interactive UI
+- 🪟 **Resizable Panels** for editor & preview layout  
+- 🔔 **Toast Notifications** for key actions  
+- 🗂️ **Custom Modals** for file creation & deletion  
+- 🌙 **Dark Theme** with cohesive design aesthetics  
+
+---
+
+## 🏗️ **Architecture Overview**
+
+CipherStudio follows a modular **client–server architecture**:
 
 | Layer | Technology | Description |
-|-------|-------------|-------------|
-| **Frontend (Client)** | React + Vite | Handles UI, user interactions, live code editing, and communicates with backend via REST APIs. Uses JWT stored in `localStorage` for sessions. |
-| **Backend (Server)** | Node.js + Express.js | Manages authentication, CRUD for projects, and validates JWT tokens. |
-| **Database** | MongoDB Atlas | Stores user accounts and project data (name, files, user info). |
+|:------|:------------|:-------------|
+| **Frontend (Client)** | React + Vite | Manages UI, live editing, and communicates with backend via REST API. Uses JWT for authentication. |
+| **Backend (Server)** | Node.js + Express.js | Handles authentication, CRUD operations, and JWT validation. |
+| **Database** | MongoDB Atlas | Stores user data and project files. |
 
 ---
 
-## 🛠️ Technology Stack  
+## 🛠️ **Technology Stack**
 
 ### 🧩 Frontend
-- **Framework:** React 18  
-- **Build Tool:** Vite  
-- **Routing:** `react-router-dom`  
-- **Editor/Preview:** `@codesandbox/sandpack-react`, `@codesandbox/sandpack-themes`  
-- **Layout:** `react-resizable-panels`  
-- **Icons:** `lucide-react`  
-- **Styling:** Pure CSS (with CSS Variables)  
+- ⚛️ **React 18**  
+- ⚙️ **Vite** (fast dev & build tool)  
+- 🧭 **react-router-dom** (routing)  
+- 💻 **@codesandbox/sandpack-react**, **sandpack-themes** (editor & live preview)  
+- 🪟 **react-resizable-panels** (resizable UI panes)  
+- 🧱 **lucide-react** (icons)  
+- 🎨 **CSS with Variables** (custom dark theme)
 
 ### ⚙️ Backend
-- **Runtime:** Node.js  
-- **Framework:** Express.js  
-- **Database ORM:** Mongoose  
-- **Authentication:** `jsonwebtoken`, `bcryptjs`  
-- **Middleware:** `cors`  
+- 🟢 **Node.js**  
+- 🚀 **Express.js**  
+- 🧩 **Mongoose** (MongoDB ORM)  
+- 🔐 **jsonwebtoken**, **bcryptjs** (auth & password encryption)  
+- 🌍 **cors** (API access middleware)
 
 ### 🗄️ Database
-- **MongoDB Atlas** (Cloud-hosted NoSQL)
+- ☁️ **MongoDB Atlas** (Cloud-hosted, NoSQL)
 
 ### 🌐 Deployment
-- **Frontend:** Vercel  
-- **Backend:** Render  
+- 🖥️ **Frontend:** [Vercel](https://vercel.com/)  
+- 🧠 **Backend:** [Render](https://render.com/)
 
 ---
 
-## 🚀 Setup & Installation (Run Locally)
+## 🚀 **Setup & Installation (Run Locally)**
 
 ### 🧰 Prerequisites
-- Node.js (v18 or later)  
-- npm (comes with Node)  
-- Git  
+Ensure you have:
+- Node.js (v18+)
+- npm (comes with Node)
+- Git
 - MongoDB Atlas account
-  
-
----
-### ⚙️ 1. Clone the Repository  
-
-- git clone https://github.com/neerajgade0010/cipher-studio.git
-- cd cipher-studio
 
 
 
